@@ -3,8 +3,9 @@ var credentials = require('./../private/config').mongodb;
 
 var MongoClient = mongodb.MongoClient;
 var url = "mongodb://"+credentials.user+":"+credentials.password+"@ds135519.mlab.com:35519/text_convert_machine_db";
+var ObjectID = mongodb.ObjectID;
 
-var mydb = {};
+var repository = {};
 var filesCollection = "files";
 
 MongoClient.connect(url, function (err, db) {
@@ -12,29 +13,35 @@ MongoClient.connect(url, function (err, db) {
         console.log('Unable to connect to the mongoDB server. Error:', err);
     } else {
         console.log('Connection established to', url);
-        mydb.db = db;
+        repository.db = db;
     }
 });
 
-mydb.createFile = function(name) {
-    mydb.db.collection(filesCollection).insertOne({
+repository.createFile = function(name, content, res) {
+    repository.db.collection(filesCollection).insertOne({
         "name" : name,
+        "content" : content,
         "createdDate" : new Date()
+    }, function (err, result) {
+        res.json({"message" : "successfully created " + result});
     });
 };
 
-// mydb.findUser = function(uuid) {
-//     return mydb.db.collection('users').find({
-//         "uuid" : uuid
-//     }).limit(1);
-// };
-//
-mydb.getAllFiles = function() {
-    return mydb.db.collection(filesCollection).find({});
+repository.getAllFiles = function(res) {
+    repository.db.collection(filesCollection).find().toArray(function(err, items) {
+        res.json(items);
+    });
 };
-//
-// mydb.deleteAllUsers = function() {
-//     mydb.db.collection('users').deleteMany({});
-// };
 
-module.exports = mydb;
+repository.deleteFile = function(id, res) {
+    if (typeof id !== "string") {
+        res.json({"error" : "_id should be a string"})
+    }
+    repository.db.collection(filesCollection).remove({
+        _id : ObjectID(id)
+    }, function() {
+        res.json({"message" : "successfully deleted by id: " + id});
+    });
+};
+
+module.exports = repository;
