@@ -1,0 +1,11 @@
+// change the values, rename the file to config.json and remove this comment
+{
+  "mongodb" : {
+    "user" : "lskywalker",
+    "password" : "theforce"
+  },
+  "amqp" : {
+    "user" : "pleia",
+    "password" : "theresistance"
+  }
+}

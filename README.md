@@ -16,3 +16,6 @@ angular material
 npm
 bower
 quill
+https://github.com/daniel-nagy/md-data-table
+https://api.cloudamqp.com/console/a9be2771-05e5-4cb5-bcae-060042d7d9c4/details
+rabbitmq

@@ -1,13 +1,18 @@
 /**
  * Reedsy Text Convert Machine app
  */
-var RTCM_app = angular.module('RTCM_app', ['ngMaterial', 'ngResource', 'ngRoute']);
+var RTCM_app = angular.module('RTCM_app', ['ngMaterial', 'ngResource', 'ngRoute', 'md.data.table']);
 
-RTCM_app.controller('MainCtrl', ['$scope', '$resource', '$mdDialog', '$document',
-    function ($scope, $resource, $mdDialog, $document) {
+RTCM_app.config(['$mdThemingProvider', function ($mdThemingProvider) {
+    $mdThemingProvider.theme('default').primaryPalette('blue');
+}]);
+
+RTCM_app.controller('MainCtrl', ['$scope', '$resource', '$mdDialog', '$document', '$http',
+    function ($scope, $resource, $mdDialog, $document, $http) {
+        var filesEndpoint = '/files';
 
         var editor;
-        var File = $resource('/files/:id', { id:'@_id' });
+        var File = $resource(filesEndpoint + '/:id', {id: '@_id'});
         refreshFiles();
 
         function refreshFiles() {
@@ -30,13 +35,13 @@ RTCM_app.controller('MainCtrl', ['$scope', '$resource', '$mdDialog', '$document'
                 });
         };
 
-        $scope.deleteFile = function(file) {
+        $scope.deleteFile = function (file) {
             file.$delete().then(refreshFiles);
         };
 
         function CreateFileCtrl($scope, $mdDialog) {
             var editor;
-            $scope.name = "untitled";
+            $scope.name = "";
             $scope.hide = function () {
                 $mdDialog.hide();
             };
@@ -48,7 +53,7 @@ RTCM_app.controller('MainCtrl', ['$scope', '$resource', '$mdDialog', '$document'
             $scope.save = function () {
                 var newFile = new File();
                 newFile.name = $scope.name;
-                newFile.content = editor.getContents();
+                newFile.content = editor.root.innerHTML;
                 $mdDialog.hide(newFile);
             };
             setTimeout(function () {
@@ -57,6 +62,25 @@ RTCM_app.controller('MainCtrl', ['$scope', '$resource', '$mdDialog', '$document'
                 });
             }, 500);
 
+        }
+
+        $scope.selected = [];
+        $scope.limitOptions = [5, 10, 15];
+
+        $scope.query = {
+            order: 'name',
+            limit: 5,
+            page: 1
+        };
+
+        $scope.convertFile = function (file, fileFormat) {
+            $http.put(filesEndpoint + '/' + file._id + '/convert', {
+                format: fileFormat
+            })
+                .success(function (data, status, headers, config) {
+                })
+                .error(function (data, status, header, config) {
+                });
         }
 
     }]);

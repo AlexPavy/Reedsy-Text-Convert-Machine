@@ -11,12 +11,14 @@
     <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="bower_components/quill/dist/quill.core.js"></script>
     <script src="bower_components/quill/dist/quill.js"></script>
+    <script src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
 
     <script src="main.js"></script>
 
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
     <link rel="stylesheet" href="bower_components/quill/dist/quill.core.css">
     <link rel="stylesheet" href="bower_components/quill/dist/quill.snow.css">
+    <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.min.css">
 
     <link rel="stylesheet" href="main.css">
 </head>
@@ -24,34 +26,52 @@
 <div ng-controller="MainCtrl" class="md-padding" id="main_ctrl">
     <h1>Text Convert Machine</h1>
 
-    <div ng-cloak layout-gt-sm="row" layout="column">
+    <md-card>
 
-        <div flex-gt-sm="50" flex>
+        <md-toolbar class="md-table-toolbar md-default">
+            <div class="md-toolbar-tools">
+                <h2>Conversions</h2>
+                <md-button class="md-fab" aria-label="Create file" ng-click="createFile($event)">
+                    <md-icon md-svg-src="img/ic_note_add_black_24px.svg"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
 
-            <md-toolbar layout="row" class="md-hue-3">
-                <div class="md-toolbar-tools">
-                    <h2>Conversions</h2>
-                    <md-button class="md-fab" aria-label="Create file" ng-click="createFile($event)">
-                        <md-icon md-svg-src="img/ic_note_add_black_24px.svg"></md-icon>
-                    </md-button>
-                </div>
-            </md-toolbar>
+        <md-table-container>
+            <table md-table md-row-select="false" multiple="false" ng-model="selected"
+                   md-progress="promise">
+                <thead md-head md-order="query.order">
+                <tr md-row>
+                    <th md-column md-order-by="name"><span>Name</span></th>
+                    <th md-column md-order-by="createdDate"><span>Created at</span></th>
+                    <th md-column md-order-by="type"><span>Convert as HTML</span></th>
+                    <th md-column md-order-by="status"><span>Convert as PDF</span></th>
+                </tr>
+                </thead>
+                <tbody md-body>
+                <tr md-row md-select="file" md-on-select="logItem" md-auto-select="false"
+                    ng-repeat="file in files | filter: filter.search | orderBy: query.order
+                    | limitTo: query.limit : (query.page -1) * query.limit">
+                    <td md-cell>{{file.name}}</td>
+                    <td md-cell>{{file.createdDate}}</td>
+                    <td ng-click="convertFile(file, 'html')" md-cell>{{file.htmlExport}}</td>
+                    <td ng-click="convertFile(file, 'pdf')" md-cell>{{file.pdfExport}}</td>
+                    <td md-cell>
+                        <md-icon md-svg-src="img/ic_close_black_24px.svg" aria-label="Delete"
+                                 ng-click="deleteFile(file)">
+                        </md-icon>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
 
-            <md-content>
-                <md-list flex>
-                    <md-subheader class="md-no-sticky">Conversions</md-subheader>
-                    <md-list-item class="md-1-line" ng-repeat="file in files">
-                        <div class="md-list-item-text" layout="line">
-                            <span>{{ file.name }}</span>
-                            <md-icon md-svg-src="img/ic_close_black_24px.svg" aria-label="Delete"
-                            ng-click="deleteFile(file)">
-                            </md-icon>
-                        </div>
-                    </md-list-item>
-                </md-list>
-            </md-content>
-        </div>
-    </div>
+        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page"
+                             md-total="{{files.count}}" md-page-select="options.pageSelect"
+                             md-boundary-links="options.boundaryLinks"
+                             md-on-paginate="logPagination">
+        </md-table-pagination>
+    </md-card>
 
 </div>
 </body>

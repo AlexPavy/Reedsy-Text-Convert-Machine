@@ -33,6 +33,15 @@ repository.getAllFiles = function(res) {
     });
 };
 
+repository.getFile = function(id, callback) {
+    if (typeof id !== "string") {
+        res.json({"error" : "_id should be a string"})
+    }
+    repository.db.collection(filesCollection).findOne({
+        _id : ObjectID(id)
+    }, callback);
+};
+
 repository.deleteFile = function(id, res) {
     if (typeof id !== "string") {
         res.json({"error" : "_id should be a string"})
