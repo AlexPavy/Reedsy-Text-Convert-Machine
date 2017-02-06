@@ -4,11 +4,7 @@
   "description": "convert to html or pdf",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test",
-    "build": "gulp",
-    "serve": "gulp serve",
-    "serve:dist": "gulp serve:dist",
-    "test:auto": "gulp test:auto"
+    "start" : "node app.js"
   },
   "repository": {
     "type": "git",
