@@ -29,6 +29,7 @@
     "html-pdf": "^2.1.0",
     "mkdirp": "^0.5.1",
     "mongoose": "^4.7.9",
-    "socket.io": "^1.7.2"
+    "socket.io": "^1.7.2",
+    "mongodb": "latest"
   }
 }

@@ -35,7 +35,13 @@ RTCM_app.controller('MainCtrl', ['$scope', '$resource', '$mdDialog', '$document'
         };
 
         $scope.deleteFile = function (file) {
-            file.$delete().then(refreshFiles);
+            file.$delete().then(function() {
+                var index = $scope.files.indexOf(file);
+                if (index > -1) {
+                    $scope.files.splice(index, 1);
+                }
+                $scope.$apply();
+            });
         };
 
         function CreateFileCtrl($scope, $mdDialog) {
