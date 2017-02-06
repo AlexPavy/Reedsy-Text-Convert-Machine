@@ -5,7 +5,7 @@ var router = require("./backend/router");
 var port = 8080;
 
 app.listen(port, function () {
-    console.log('Example app listening on port '+ port +'!')
+    console.log('Text convert machine backend listening on port '+ port +'!')
 });
 app.use(express.static(__dirname + '/client'));
 

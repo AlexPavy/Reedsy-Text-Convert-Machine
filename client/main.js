@@ -64,23 +64,23 @@ RTCM_app.controller('MainCtrl', ['$scope', '$resource', '$mdDialog', '$document'
 
         }
 
-        $scope.selected = [];
         $scope.limitOptions = [5, 10, 15];
-
         $scope.query = {
             order: 'name',
             limit: 5,
             page: 1
         };
 
-        $scope.convertFile = function (file, fileFormat) {
-            $http.put(filesEndpoint + '/' + file._id + '/convert', {
-                format: fileFormat
-            })
-                .success(function (data, status, headers, config) {
-                })
-                .error(function (data, status, header, config) {
+        $scope.actionForFile = function (file, fileFormat) {
+            if (file[fileFormat + "Export"] == "Done") {
+                // will download
+            } else {
+                $http.put(filesEndpoint + '/' + file._id + '/convert', {
+                    type: fileFormat
+                }).then(function () {
+                    file[fileFormat + "Export"] = "In progress";
                 });
+            }
         }
 
     }]);

@@ -1,3 +1,8 @@
+#app-title {
+    font-family: 'Sansita', sans-serif;
+    text-align: center;
+}
+
 #main_ctrl { position: relative; }
 
 .text_editor {

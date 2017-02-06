@@ -14,6 +14,7 @@
     <script src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
 
     <script src="main.js"></script>
+    <script src="downloadDirective.js"></script>
 
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
     <link rel="stylesheet" href="bower_components/quill/dist/quill.core.css">
@@ -21,10 +22,12 @@
     <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.min.css">
 
     <link rel="stylesheet" href="main.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Sansita" rel="stylesheet">
 </head>
 <body ng-app="RTCM_app">
 <div ng-controller="MainCtrl" class="md-padding" id="main_ctrl">
-    <h1>Text Convert Machine</h1>
+    <h1 id = "app-title">Text Convert Machine</h1>
 
     <md-card>
 
@@ -44,8 +47,8 @@
                 <tr md-row>
                     <th md-column md-order-by="name"><span>Name</span></th>
                     <th md-column md-order-by="createdDate"><span>Created at</span></th>
-                    <th md-column md-order-by="type"><span>Convert as HTML</span></th>
-                    <th md-column md-order-by="status"><span>Convert as PDF</span></th>
+                    <th md-column md-order-by="htmlExport"><span>As HTML</span></th>
+                    <th md-column md-order-by="pdfExport"><span>As PDF</span></th>
                 </tr>
                 </thead>
                 <tbody md-body>
@@ -53,9 +56,23 @@
                     ng-repeat="file in files | filter: filter.search | orderBy: query.order
                     | limitTo: query.limit : (query.page -1) * query.limit">
                     <td md-cell>{{file.name}}</td>
-                    <td md-cell>{{file.createdDate}}</td>
-                    <td ng-click="convertFile(file, 'html')" md-cell>{{file.htmlExport}}</td>
-                    <td ng-click="convertFile(file, 'pdf')" md-cell>{{file.pdfExport}}</td>
+                    <td md-cell>{{file.createdDate | date : 'medium'}}</td>
+                    <td ng-click="actionForFile(file, 'html')" md-cell>
+                        <download-file ng-show="file.htmlExport == 'Done'"
+                                       id="file._id" name="file.name" type="'html'">
+                        </download-file>
+                        <span ng-show="file.htmlExport != 'Done'">
+                            {{file.htmlExport || "Start conversion"}}
+                        </span>
+                    </td>
+                    <td ng-click="actionForFile(file, 'pdf')" md-cell>
+                        <download-file ng-show="file.pdfExport == 'Done'"
+                                       id="file._id" name="file.name" type="'pdf'">
+                        </download-file>
+                        <span ng-show="file.pdfExport != 'Done'">
+                            {{file.pdfExport || "Start conversion"}}
+                        </span>
+                    </td>
                     <td md-cell>
                         <md-icon md-svg-src="img/ic_close_black_24px.svg" aria-label="Delete"
                                  ng-click="deleteFile(file)">
@@ -67,7 +84,7 @@
         </md-table-container>
 
         <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page"
-                             md-total="{{files.count}}" md-page-select="options.pageSelect"
+                             md-total="{{files.length}}" md-page-select="options.pageSelect"
                              md-boundary-links="options.boundaryLinks"
                              md-on-paginate="logPagination">
         </md-table-pagination>
