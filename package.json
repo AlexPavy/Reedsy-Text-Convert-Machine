@@ -2,6 +2,10 @@
   "name": "reedsy_text_convert_machine",
   "version": "1.0.1",
   "description": "convert files to html or pdf",
+  "engines": {
+    "node": "6.9.4",
+    "npm": "3.10.10"
+  },
   "main": "app.js",
   "scripts": {
     "start" : "node app.js"
