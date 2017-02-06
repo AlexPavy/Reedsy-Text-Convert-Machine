@@ -3,7 +3,8 @@ var credentials = require('./../config/config').mongodb;
 var Promise = require("bluebird");
 
 var MongoClient = mongodb.MongoClient;
-var url = "mongodb://" + credentials.user + ":" + credentials.password + "@ds135519.mlab.com:35519/text_convert_machine_db";
+var url = "mongodb://" + credentials.user + ":" + credentials.password
+    + "@ds135519.mlab.com:35519/text_convert_machine_db";
 var ObjectID = mongodb.ObjectID;
 
 var repository = {};
