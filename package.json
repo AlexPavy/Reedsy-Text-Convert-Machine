@@ -1,8 +1,8 @@
 {
   "name": "reedsy_text_convert_machine",
-  "version": "1.0.0",
-  "description": "convert to html or pdf",
-  "main": "index.js",
+  "version": "1.0.1",
+  "description": "convert files to html or pdf",
+  "main": "app.js",
   "scripts": {
     "start" : "node app.js"
   },
