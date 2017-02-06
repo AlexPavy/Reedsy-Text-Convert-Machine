@@ -28,7 +28,7 @@
 </head>
 <body ng-app="RTCM_app">
 <div ng-controller="MainCtrl" class="md-padding" id="main_ctrl">
-    <h1 id = "app-title">Text Convert Machine</h1>
+    <h1 id="app-title">Text Convert Machine</h1>
 
     <md-card>
 
@@ -58,26 +58,40 @@
                     | limitTo: query.limit : (query.page -1) * query.limit">
                     <td md-cell>{{file.name}}</td>
                     <td md-cell>{{file.createdDate | date : 'medium'}}</td>
-                    <td ng-click="actionForFile(file, 'html')" md-cell>
-                        <download-file ng-show="file.htmlExport == 'Done'"
-                                       id="file._id" name="file.name" type="'html'">
-                        </download-file>
-                        <span ng-show="file.htmlExport != 'Done'">
-                            {{file.htmlExport || "Start conversion"}}
-                        </span>
-                    </td>
-                    <td ng-click="actionForFile(file, 'pdf')" md-cell>
-                        <download-file ng-show="file.pdfExport == 'Done'"
-                                       id="file._id" name="file.name" type="'pdf'">
-                        </download-file>
-                        <span ng-show="file.pdfExport != 'Done'">
-                            {{file.pdfExport || "Start conversion"}}
+                    <td md-cell>
+                        <md-button ng-show="file.htmlExport != 'in_progress'"
+                                   ng-click="actionForFile(file, 'html')">
+                            <download-file ng-show="file.htmlExport == 'Done'"
+                                           id="file._id" name="file.name" type="'html'">
+                            </download-file>
+                            <span ng-show="file.htmlExport != 'Done'">
+                                Convert
+                            </span>
+                        </md-button>
+                        <span ng-show="file.htmlExport == 'in_progress'">
+                            <img src="img/loading.gif" alt="In progress" width="120px" height="15px">
                         </span>
                     </td>
                     <td md-cell>
-                        <md-icon md-svg-src="img/ic_close_black_24px.svg" aria-label="Delete"
-                                 ng-click="deleteFile(file)">
-                        </md-icon>
+                        <md-button ng-show="file.pdfExport != 'in_progress'"
+                                   ng-click="actionForFile(file, 'pdf')" >
+                            <download-file ng-show="file.pdfExport == 'Done'"
+                                           id="file._id" name="file.name" type="'pdf'">
+                            </download-file>
+                            <span ng-show="file.pdfExport != 'Done'">
+                                Convert
+                            </span>
+                        </md-button>
+                        <span ng-show="file.pdfExport == 'in_progress'">
+                            <img src="img/loading.gif" alt="In progress" width="120px" height="15px">
+                        </span>
+                    </td>
+                    <td md-cell>
+                        <md-button>
+                            <md-icon md-svg-src="img/ic_close_black_24px.svg" aria-label="Delete"
+                                     ng-click="deleteFile(file)">
+                            </md-icon>
+                        </md-button>
                     </td>
                 </tr>
                 </tbody>

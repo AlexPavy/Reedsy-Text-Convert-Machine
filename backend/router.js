@@ -28,7 +28,9 @@ function start(app) {
             filesService.deleteConversions(req.params.id)
         ]).then(function () {
             res.json({"message": "successfully deleted by id: " + req.params.id});
-        })
+        }).catch(function(e) {
+            res.json({"error": "error in deleteFile: " + e});
+        });
     });
     app.put('/' + filesEndPoint + '/:id' + '/convert', function (req, res) {
         messageService.sendConvertFile(req.params.id, req.body.type);

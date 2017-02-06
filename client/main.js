@@ -31,7 +31,6 @@ RTCM_app.controller('MainCtrl', ['$scope', '$resource', '$mdDialog', '$document'
                 .then(function (file) {
                     file.$save().then(refreshFiles);
                 }, function () {
-                    $scope.status = 'You cancelled the dialog.';
                 });
         };
 
@@ -56,12 +55,12 @@ RTCM_app.controller('MainCtrl', ['$scope', '$resource', '$mdDialog', '$document'
                 newFile.content = editor.root.innerHTML;
                 $mdDialog.hide(newFile);
             };
-            setTimeout(function () {
-                editor = new Quill($document[0].querySelector('#editor'), {
+
+            onElementCreated('#editor', function (elem) {
+                editor = new Quill(elem, {
                     theme: 'snow'
                 });
-            }, 500);
-
+            });
         }
 
         $scope.limitOptions = [5, 10, 20];
@@ -78,7 +77,7 @@ RTCM_app.controller('MainCtrl', ['$scope', '$resource', '$mdDialog', '$document'
                 $http.put(filesEndpoint + '/' + file._id + '/convert', {
                     type: fileFormat
                 }).then(function () {
-                    file[fileFormat + "Export"] = "In progress";
+                    file[fileFormat + "Export"] = "in_progress";
                 }, function () {
                     file[fileFormat + "Export"] = undefined;
                 });
@@ -86,17 +85,32 @@ RTCM_app.controller('MainCtrl', ['$scope', '$resource', '$mdDialog', '$document'
         };
 
         var socket = io.connect('http://localhost:8081');
-        socket.on('conversion_finished_html', function(id) {
-            $scope.files.find(function(file) {
+        socket.on('conversion_finished_html', function (id) {
+            $scope.files.find(function (file) {
                 return file._id == id;
             }).htmlExport = "Done";
             $scope.$apply();
         });
-        socket.on('conversion_finished_pdf', function(id) {
-            $scope.files.find(function(file) {
+        socket.on('conversion_finished_pdf', function (id) {
+            $scope.files.find(function (file) {
                 return file._id == id;
             }).pdfExport = "Done";
             $scope.$apply();
         });
+
+        /**
+         * @param {string} selectorExpression
+         * @param {function} func
+         */
+        function onElementCreated(selectorExpression, func) {
+            var element = $document[0].querySelector(selectorExpression);
+            if (element != null) {
+                func(element);
+            } else {
+                setTimeout(function () {
+                    onElementCreated(selectorExpression, func);
+                }, 100);
+            }
+        }
 
     }]);
