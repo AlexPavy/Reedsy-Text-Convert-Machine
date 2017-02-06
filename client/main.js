@@ -22,7 +22,7 @@ RTCM_app.controller('MainCtrl', ['$scope', '$resource', '$mdDialog', '$document'
         $scope.createFile = function (ev) {
             $mdDialog.show({
                 controller: CreateFileCtrl,
-                templateUrl: 'createFile.html',
+                templateUrl: 'client/createFile.html',
                 parent: angular.element($document[0].body),
                 targetEvent: ev,
                 fullscreen: false,

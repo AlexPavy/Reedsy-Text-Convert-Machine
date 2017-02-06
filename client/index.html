@@ -11,16 +11,16 @@
     <script src="../node_modules/angular-route/angular-route.min.js"></script>
     <script src="../node_modules/angular-material-data-table/dist/md-data-table.min.js"></script>
     <script src="../node_modules/socket.io-client/dist/socket.io.min.js"></script>
-    <script src="//cdn.quilljs.com/1.2.0/quill.min.js"></script>
-    <script src="//cdn.quilljs.com/1.2.0/quill.core.js"></script>
-    <script src="main.js"></script>
-    <script src="downloadDirective.js"></script>
+    <script src="client/lib/quill.core.js"></script>
+    <script src="client/lib/quill.js"></script>
+    <script src="client/main.js"></script>
+    <script src="client/downloadDirective.js"></script>
 
     <link rel="stylesheet" href="../node_modules/angular-material/angular-material.min.css">
     <link rel="stylesheet" href="../node_modules/angular-material-data-table/dist/md-data-table.min.css">
-    <link href="//cdn.quilljs.com/1.2.0/quill.core.css" rel="stylesheet">
-    <link href="//cdn.quilljs.com/1.2.0/quill.snow.css" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
+    <link href="client/lib/quill.core.css" rel="stylesheet">
+    <link href="client/lib/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="client/main.css">
     <link href="https://fonts.googleapis.com/css?family=Sansita" rel="stylesheet">
 </head>
 <body ng-app="RTCM_app">
@@ -33,7 +33,7 @@
             <div class="md-toolbar-tools">
                 <h2>Conversions</h2>
                 <md-button class="md-fab" aria-label="Create file" ng-click="createFile($event)">
-                    <md-icon md-svg-src="img/ic_note_add_black_24px.svg"></md-icon>
+                    <md-icon md-svg-src="client/img/ic_note_add_black_24px.svg"></md-icon>
                 </md-button>
             </div>
         </md-toolbar>
@@ -66,7 +66,7 @@
                             </span>
                         </md-button>
                         <span ng-show="file.htmlExport == 'in_progress'">
-                            <img src="img/loading.gif" alt="In progress" width="120px" height="15px">
+                            <img src="client/img/loading.gif" alt="In progress" width="120px" height="15px">
                         </span>
                     </td>
                     <td md-cell>
@@ -80,12 +80,12 @@
                             </span>
                         </md-button>
                         <span ng-show="file.pdfExport == 'in_progress'">
-                            <img src="img/loading.gif" alt="In progress" width="120px" height="15px">
+                            <img src="client/img/loading.gif" alt="In progress" width="120px" height="15px">
                         </span>
                     </td>
                     <td md-cell>
                         <md-button>
-                            <md-icon md-svg-src="img/ic_close_black_24px.svg" aria-label="Delete"
+                            <md-icon md-svg-src="client/img/ic_close_black_24px.svg" aria-label="Delete"
                                      ng-click="deleteFile(file)">
                             </md-icon>
                         </md-button>
