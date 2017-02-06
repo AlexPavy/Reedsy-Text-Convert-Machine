@@ -1,0 +1,10 @@
+{
+  "mongodb" : {
+    "user" : "admin",
+    "password" : "defaultpass"
+  },
+  "amqp" : {
+    "user" : "wzchompi",
+    "password" : "znRvbFP6zn3iNfa-H87MfVcNvvNR2LH0"
+  }
+}

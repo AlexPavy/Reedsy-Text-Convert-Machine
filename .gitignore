@@ -6,4 +6,3 @@ node_modules/
 src/
 client/bower_components/
 client/converted-files/
-private/config.json

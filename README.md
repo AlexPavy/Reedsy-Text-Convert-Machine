@@ -7,6 +7,8 @@ I needed to run "npm run build".
 This failed because of a trailing ";" in package.json "build" command :
 "webpack --config _develop/webpack.config.js; rm dist/quill.core dist/quill.bubble dist/quill.snow;".
 
+
+
 For
 https://gist.github.com/pedrosanta/aa4ca7260cd7a3d658c739c194ec1743
 

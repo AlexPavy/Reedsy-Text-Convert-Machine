@@ -2,7 +2,7 @@ var filesService = require('./filesService');
 var db = require("./repository");
 var amqp = require('amqp');
 var http = require("http");
-var credentials = require('./../private/config').amqp;
+var credentials = require('./../config/config').amqp;
 var notificationService = require('./notificationService');
 
 var amqpHost = 'antelope.rmq.cloudamqp.com';

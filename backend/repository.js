@@ -1,5 +1,5 @@
 var mongodb = require('mongodb');
-var credentials = require('./../private/config').mongodb;
+var credentials = require('./../config/config').mongodb;
 var Promise = require("bluebird");
 
 var MongoClient = mongodb.MongoClient;
