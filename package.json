@@ -30,6 +30,13 @@
     "mkdirp": "^0.5.1",
     "mongoose": "^4.7.9",
     "socket.io": "^1.7.2",
-    "mongodb": "latest"
+    "mongodb": "latest",
+    "angular": "^1.6.1",
+    "angular-material": "^1.1.1",
+    "angular-resource": "^1.6.1",
+    "quill": "^1.2.0",
+    "angular-route": "^1.6.1",
+    "angular-material-data-table": "^0.10.10",
+    "socket.io-client": "^1.7.2"
   }
 }
