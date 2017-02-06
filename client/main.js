@@ -64,7 +64,7 @@ RTCM_app.controller('MainCtrl', ['$scope', '$resource', '$mdDialog', '$document'
 
         }
 
-        $scope.limitOptions = [5, 10, 15];
+        $scope.limitOptions = [5, 10, 20];
         $scope.query = {
             order: 'name',
             limit: 5,
@@ -79,8 +79,24 @@ RTCM_app.controller('MainCtrl', ['$scope', '$resource', '$mdDialog', '$document'
                     type: fileFormat
                 }).then(function () {
                     file[fileFormat + "Export"] = "In progress";
+                }, function () {
+                    file[fileFormat + "Export"] = undefined;
                 });
             }
-        }
+        };
+
+        var socket = io.connect('http://localhost:8081');
+        socket.on('conversion_finished_html', function(id) {
+            $scope.files.find(function(file) {
+                return file._id == id;
+            }).htmlExport = "Done";
+            $scope.$apply();
+        });
+        socket.on('conversion_finished_pdf', function(id) {
+            $scope.files.find(function(file) {
+                return file._id == id;
+            }).pdfExport = "Done";
+            $scope.$apply();
+        });
 
     }]);

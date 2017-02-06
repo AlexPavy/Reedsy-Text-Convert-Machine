@@ -3,6 +3,7 @@ var db = require("./repository");
 var amqp = require('amqp');
 var http = require("http");
 var credentials = require('./../private/config').amqp;
+var notificationService = require('./notificationService');
 
 var amqpHost = 'antelope.rmq.cloudamqp.com';
 var amqpUrl = 'amqp://' + credentials.user + ':' + credentials.password + '@' + amqpHost + '/' + credentials.user;
@@ -60,15 +61,16 @@ function sendConvertFile(id, type) {
         priority: CONVERSION_PRIORITY[type],
         contentType: 'application/json'
     }, function () {
-        console.log("sendConvertFile successful : " + id)
+        console.log("sent message to convert file : " + id)
     });
 }
 
 function doConvertHtml(id) {
     setTimeout(function () {
         db.getFile(id, function (err, file) {
-            filesService.createHTMLConversion(id, file, function (err) {
+            filesService.createHTMLConversion(id, file, function () {
                 db.updateFile(id, "Done", null).then(function () {
+                    notificationService.emitConversionFinished(id, 'html');
                     console.log("Finished converting file : " + id + " to html")
                 })
             });
@@ -81,6 +83,7 @@ function doConvertPDF(id) {
         db.getFile(id, function (err, file) {
             filesService.createPDFConversion(id, file, function (err) {
                 db.updateFile(id, null, "Done").then(function () {
+                    notificationService.emitConversionFinished(id, 'pdf');
                     console.log("Finished converting file : " + id + " to pdf")
                 })
             });
