@@ -1,8 +1,8 @@
-# Reedsy-Text-Convert-Machine
+Reedsy Text Convert Machine
 
 ![App snapshot](https://github.com/AlexPavy/Reedsy-Text-Convert-Machine/blob/master/doc/text_convert_machine.PNG)
 
-## This app is for the question 4 on :
+## Reedsy test
 
 [Reedsy Node.js Fullstack Engineer Challenge](https://gist.github.com/pedrosanta/aa4ca7260cd7a3d658c739c194ec1743)
 
@@ -44,6 +44,9 @@ This failed because of a trailing ";" in package.json "build" command :
 "webpack --config _develop/webpack.config.js; rm dist/quill.core dist/quill.bubble dist/quill.snow;".
 
 ### Heroku
+
+[This app on Heroku](https://text-convert-machine.herokuapp.com/)
+
 I could not get the filesystem working on the Heroku server, in order to download the files.
 I could also not get socket.io to work.
 It all works on my local machine however.
