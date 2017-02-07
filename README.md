@@ -1,4 +1,4 @@
-Reedsy Text Convert Machine
+# Reedsy Text Convert Machine
 
 ![App snapshot](https://github.com/AlexPavy/Reedsy-Text-Convert-Machine/blob/master/doc/text_convert_machine.PNG)
 
