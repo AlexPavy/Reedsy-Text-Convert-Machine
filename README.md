@@ -14,6 +14,7 @@ Steps
 * execute "npm install"
 * check config in config/ folder
 * execute "npm start"
+* start web browser on localhost:3000
 
 ## Dependencies
 * [MongoDB](https://www.mongodb.com)

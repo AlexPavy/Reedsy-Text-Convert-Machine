@@ -9,7 +9,7 @@ RTCM_app.directive('downloadFile', function ($compile) {
         link: function (scope, elm) {
             elm.append($compile(
                 '<a class="btn" download="' + scope.name + '.' + scope.type + '" ' +
-                'href="/converted-files/' + scope.type + '/' + scope.id + '.' + scope.type + '">' +
+                'href="/client/converted-files/' + scope.type + '/' + scope.id + '.' + scope.type + '">' +
                 '<md-icon md-svg-src="client/img/ic_file_download_black_24px.svg" aria-label="Download">' +
                 '</md-icon>' +
                 '</a>'
