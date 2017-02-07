@@ -6,8 +6,7 @@
 
 [Reedsy Node.js Fullstack Engineer Challenge](https://gist.github.com/pedrosanta/aa4ca7260cd7a3d658c739c194ec1743)
 
-Answer to questions 1 to 3
-[MongoDB](https://www.mongodb.com)
+[Answer to questions 1 to 3](https://github.com/AlexPavy/Reedsy-Text-Convert-Machine/blob/master/doc/ReedsyTest.pdf)
 
 ## Setup
 
@@ -29,9 +28,12 @@ Steps
 * [Material Icons](https://material.io/icons/)
 * [Material Design Data Table](https://github.com/daniel-nagy/md-data-table)
 * [socket.io](http://socket.io/)
+* [bluebird](http://bluebirdjs.com/docs/getting-started.html)
 
 ### Quill.js
 To setup the client, I encountered a bug with the library quill.
+
+I finally copied the build js and css files in a dedicated client/lib folder
 
 After running "bower install quill", the file quill.js was actually typescript.
 The javascript quill.js is supposed to be in dist/quill.js, and to build it,
