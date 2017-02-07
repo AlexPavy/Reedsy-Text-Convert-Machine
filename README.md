@@ -1,37 +1,47 @@
 # Reedsy-Text-Convert-Machine
 
+![App snapshot](https://github.com/AlexPavy/Reedsy-Text-Convert-Machine/blob/master/doc/text_convert_machine.PNG)
+
+## This app is for the question 4 on :
+
+[Reedsy Node.js Fullstack Engineer Challenge](https://gist.github.com/pedrosanta/aa4ca7260cd7a3d658c739c194ec1743)
+
+Answer to questions 1 to 3
+[MongoDB](https://www.mongodb.com)
+
+## Setup
+
+Steps
+* execute "npm install"
+* check config in config/ folder
+* execute "npm start"
+
+## Dependencies
+* [MongoDB](https://www.mongodb.com)
+* [mLab](https://mlab.com/)
+* [Nodejs](https://nodejs.org/en/)
+* [NPM](https://www.npmjs.com/)
+* [CloudAMQP](https://customer.cloudamqp.com/instance)
+* [Quill](http://quilljs.com/)
+* [node-html-pdf](https://github.com/marcbachmann/node-html-pdf)
+* [Angular js](https://angularjs.org/)
+* [Angular Material](https://material.angularjs.org/latest/)
+* [Material Icons](https://material.io/icons/)
+* [Material Design Data Table](https://github.com/daniel-nagy/md-data-table)
+* [socket.io](http://socket.io/)
+
+### Quill.js
 To setup the client, I encountered a bug with the library quill.
+
 After running "bower install quill", the file quill.js was actually typescript.
 The javascript quill.js is supposed to be in dist/quill.js, and to build it,
-npm install then
-I needed to run "npm run build".
+
+I needed to run "npm install" then "npm run build".
 This failed because of a trailing ";" in package.json "build" command :
+
 "webpack --config _develop/webpack.config.js; rm dist/quill.core dist/quill.bubble dist/quill.snow;".
 
-
-
-For
-https://gist.github.com/pedrosanta/aa4ca7260cd7a3d658c739c194ec1743
-
-Uses
-https://material.io/icons/
-https://mlab.com/
-nodejs
-angularjs
-angular material
-npm
-bower
-quill
-https://github.com/daniel-nagy/md-data-table
-https://api.cloudamqp.com/console/a9be2771-05e5-4cb5-bcae-060042d7d9c4/details
-rabbitmq
-https://github.com/marcbachmann/node-html-pdf
-socket.io
-
-
-Getting started
-
-npm install
-bower install
-config.example.json
-start app.js
+### Heroku
+I could not get the filesystem working on the Heroku server, in order to download the files.
+I could also not get socket.io to work.
+It all works on my local machine however.
